@@ -1,0 +1,60 @@
+[package]
+name = "test"
+version = "0.1.0"
+edition = "2018"
+
+
+[features]
+pio = ["esp-idf-sys/pio"]
+
+[dependencies]
+embedded-hal = "=1.0.0-alpha.9"
+embedded-hal-0-2 = { package = "embedded-hal", version = "0.2.7", features = ["unproven"] }
+nb = "0.1.3"
+
+cty = "*"
+esp-idf-sys = { version = "0.31.1",features = ["binstart"]}
+esp-idf-hal = { version = "0.39.1"}
+mpu6050 = "0.1.6"
+
+
+[build-dependencies]
+embuild = "0.31"
+anyhow = "1"
+
+
+[dependencies.spin]
+version = "0.5"
+
+
+[[package.metadata.esp-idf-sys.extra_components]]
+# A single path or a list of paths to a component directory or directory 
+# containing components.
+# 
+# Each path can be absolute or relative. Relative paths will be relative to the
+# folder containing the defining `Cargo.toml`.
+# 
+# **This field is optional.** No component will be built if this field is absent, though
+# the bindings of the `[Self::bindings_header]` will still be generated.
+component_dirs = "../components"
+
+# The path to the C header to generate the bindings with. If this option is absent,
+# **no** bindings will be generated.
+#
+# The path can be absolute or relative. A relative path will be relative to the
+# folder containing the defining `Cargo.toml`.
+#
+# This field is optional.
+bindings_header = "src/bindings.h"
+
+# If this field is present, the component bindings will be generated separately from
+# the `esp-idf` bindings and put into their own module inside the `esp-idf-sys` crate.
+# Otherwise, if absent, the component bindings will be added to the existing
+# `esp-idf` bindings (which are available in the crate root).
+#
+# To put the bindings into its own module, a separate bindgen instance will generate
+# the bindings. Note that this will result in duplicate `esp-idf` bindings if the
+# same `esp-idf` headers that were already processed for the `esp-idf` bindings are
+# included by the component(s).
+#
+# This field is optional.

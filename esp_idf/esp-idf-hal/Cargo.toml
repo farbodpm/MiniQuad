@@ -1,0 +1,45 @@
+[package]
+name = "esp-idf-hal"
+version = "0.38.0"
+authors = ["sapir <yasapir@gmail.com>", "Ivan Markov <ivan.markov@gmail.com>"]
+edition = "2018"
+categories = ["embedded", "hardware-support"]
+keywords = ["hal", "idf", "esp-idf", "esp32"]
+description = "A Hardware abstraction layer for Espressif's ESP family of microcontrollers based on the ESP-IDF framework."
+repository = "https://github.com/esp-rs/esp-idf-hal"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+documentation = "https://esp-rs.github.io/esp-idf-hal/"
+
+[features]
+default = ["std", "alloc", "esp-idf-sys", "embedded-svc"]
+
+std = ["alloc", "esp-idf-sys/std", "embedded-svc?/std"]
+
+alloc = ["embedded-svc?/alloc"]
+
+riscv-ulp-hal = []
+
+experimental = ["embedded-svc?/experimental"]
+
+[dependencies]
+nb = "0.1.2"
+mutex-trait = { version = "0.2", optional = true, default-features = false }
+embedded-hal = "=1.0.0-alpha.8"
+embedded-hal-0-2 = { package = "embedded-hal", version = "0.2.7", features = ["unproven"] }
+embedded-svc = { version = "0.22.0", optional = true, default-features = false }
+# esp-idf-sys = { version = "0.31.4", optional = true, default-features = false, features = ["native"] }
+esp-idf-sys = { path = "../esp-idf-sys",optional = true, default-features = false, features = ["native"]}
+critical-section = { version = "0.2.5", optional = true, features = ["custom-impl"] }
+embassy = { version = "0", optional = true }
+# The real version is this one and it needs to be patched into the binary crate:
+#embassy = { version = "0.1", git = "https://github.com/embassy-rs/embassy", optional = true, features = ["executor-agnostic"] }
+
+[build-dependencies]
+embuild = "0.30"
+anyhow = "1"
+
+[dev-dependencies]
+anyhow = "1"
+# esp-idf-sys = { version = "0.31.4", features = ["native", "binstart"] }
+esp-idf-sys = { path = "../esp-idf-sys",features = ["native","binstart"]}

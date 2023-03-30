@@ -1,0 +1,17 @@
+--- components/newlib/platform_include/sys/dirent.h	2022-09-11 20:25:34.403538677 +0200
++++ /tmp/1.h	2022-09-11 20:25:28.371544996 +0200
+@@ -44,6 +44,7 @@
+ struct dirent {
+     int d_ino;          /*!< file number */
+     uint8_t d_type;     /*!< not defined in POSIX, but present in BSD and Linux */
++    uint32_t size;
+ #define DT_UNKNOWN  0
+ #define DT_REG      1
+ #define DT_DIR      2
+@@ -65,4 +66,4 @@
+ 
+ #ifdef __cplusplus
+ }
+-#endif
++#endif
+\ No newline at end of file
